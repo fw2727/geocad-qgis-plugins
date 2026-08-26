@@ -1,0 +1,18 @@
+[general]
+name=CopyFromQgis - Copy QGIS to AutoCAD | GeoCAD Solutions
+qgisMinimumVersion=3.0
+description=Copy polygons from QGIS to AutoCAD 2014-2026 in one click, no DXF needed. By GeoCAD Solutions
+version=1.0
+author=Freddy Minaya - GeoCAD Solutions
+email=geocad.solutions@outlook.com
+about=Export selected features from QGIS to AutoCAD via COM. Saves 30 minutes per drawing.<br><br>From the creators of GEOCOOR - UTM Grid in 12 seconds.<br><br>Freddy Minaya - GeoCAD Solutions<br>geocad.solutions@outlook.com<br>geocadsolutions.github.io - 5 AutoCAD tools pack for $38.50 - Support by Email.
+tracker=https://github.com/wasterfw-hash/geocad-qgis-plugins/issues
+repository=https://github.com/wasterfw-hash/geocad-qgis-plugins
+tags=autocad,dwg,dxf,copy,paste,geocad,topografia,lotizaciones
+homepage=https://geocadsolutions.github.io
+category=Vector
+icon=icon.png
+experimental=True
+deprecated=False
+hasProcessingProvider=no
+license=GPL-2

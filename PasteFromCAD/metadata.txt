@@ -1,0 +1,18 @@
+[general]
+name=PasteFromCAD - Paste from AutoCAD to QGIS | GeoCAD Solutions
+qgisMinimumVersion=3.0
+description=Paste entities from AutoCAD (Ctrl+C) directly into QGIS while editing. No DXF, compatible 2014-2026
+version=1.0
+author=Freddy Minaya - GeoCAD Solutions
+email=geocad.solutions@outlook.com
+about=Paste entities copied from AutoCAD (DXF format in clipboard or _PLINE/_POINT/_TEXT text) directly into a QGIS vector layer in editing mode.<br><br>From the creators of GEOCOOR - UTM Grid in 12 seconds.<br><br>Freddy Minaya - GeoCAD Solutions<br>geocad.solutions@outlook.com<br>geocadsolutions.github.io - 5 AutoCAD tools pack for $38.50 - Support by Email.<br><br>Sister tool: CopyFromQgis to copy from QGIS to AutoCAD.
+tracker=https://github.com/wasterfw-hash/geocad-qgis-plugins/issues
+repository=https://github.com/wasterfw-hash/geocad-qgis-plugins
+tags=cad,autocad,paste,dxf,clipboard,qgis,geocad,topografia,geocoor
+homepage=https://geocadsolutions.github.io
+category=Vector
+icon=icon.png
+experimental=True
+deprecated=False
+changelog=1.0 - Initial version - Paste from AutoCAD to QGIS. Compatible 2014-2026
+license=GPL-2
