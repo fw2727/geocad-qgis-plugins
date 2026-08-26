@@ -52,7 +52,8 @@ def _read_clipboard():
                     return 'ole', data
                 if data[:6] in DWG_VERSIONS:
                     return 'dwg', data
-            except Exception:
+            except Exception as e:
+                QgsMessageLog.logMessage("PasteFromCAD: format {} skip: {}".format(fmt_id, e), "PasteFromCAD", 0)
                 continue
         try:
             text = win32clipboard.GetClipboardData(win32clipboard.CF_UNICODETEXT)
@@ -333,6 +334,8 @@ class PasteFromCAD:
         if not os.path.exists(ODA_CONVERTER):
             return None
         version = DWG_VERSIONS.get(dwg_data[:6], 'ACAD2013')
+        if version not in DWG_VERSIONS.values():
+            version = 'ACAD2013'
         dwg_path = os.path.join(tmp_dir, "input.dwg")
         dxf_out = os.path.join(tmp_dir, "dxf_out")
         os.makedirs(dxf_out, exist_ok=True)
@@ -344,7 +347,8 @@ class PasteFromCAD:
                 capture_output=True, timeout=30,
                 creationflags=getattr(subprocess, 'CREATE_NO_WINDOW', 0)
             )
-        except Exception:
+        except Exception as e:
+            QgsMessageLog.logMessage("PasteFromCAD: ODA converter: {}".format(e), "PasteFromCAD", 1)
             return None
         dxf_files = [f for f in os.listdir(dxf_out) if f.lower().endswith('.dxf')]
         if not dxf_files:
