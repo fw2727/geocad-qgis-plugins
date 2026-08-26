@@ -62,6 +62,7 @@ def _read_clipboard():
                 return 'text', text
         except Exception as e:
             QgsMessageLog.logMessage("PasteFromCAD: text clipboard read: {}".format(e), "PasteFromCAD", 1)
+        return None, None
     finally:
         win32clipboard.CloseClipboard()
 
