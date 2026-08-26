@@ -345,7 +345,7 @@ class PasteFromCAD:
         abs_dxf = os.path.abspath(dxf_out)
         abs_converter = os.path.abspath(ODA_CONVERTER)
         try:
-            subprocess.run(
+            subprocess.run(  # nosec B603
                 [abs_converter, abs_dwg, abs_dxf, version, "DXF", "0", "0"],
                 capture_output=True, timeout=30,
                 creationflags=getattr(subprocess, 'CREATE_NO_WINDOW', 0)
