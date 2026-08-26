@@ -417,21 +417,21 @@ class PasteFromCAD:
         qpts = [QgsPointXY(p[0], p[1]) for p in pts_2d]
 
         if len(qpts) < 2:
-            if layer_type == QgsWkbTypes.PointGeometry and len(qpts) == 1:
+            if layer_type == QgsWkbTypes.GeometryType.PointGeometry and len(qpts) == 1:
                 return QgsGeometry.fromPointXY(qpts[0])
             return None
 
-        if layer_type == QgsWkbTypes.PolygonGeometry:
+        if layer_type == QgsWkbTypes.GeometryType.PolygonGeometry:
             if qpts[0] != qpts[-1]:
                 qpts.append(qpts[0])
             if len(qpts) < 4:
                 return None
             return QgsGeometry.fromPolygonXY([qpts])
 
-        elif layer_type == QgsWkbTypes.LineGeometry:
+        elif layer_type == QgsWkbTypes.GeometryType.LineGeometry:
             return QgsGeometry.fromPolylineXY(qpts)
 
-        elif layer_type == QgsWkbTypes.PointGeometry:
+        elif layer_type == QgsWkbTypes.GeometryType.PointGeometry:
             return QgsGeometry.fromPointXY(qpts[0])
 
         return None
@@ -464,13 +464,13 @@ class PasteFromCAD:
             points.append(QgsPointXY(float(m.group(1)), float(m.group(2))))
         if len(points) < 2:
             return None
-        if layer_type == QgsWkbTypes.PolygonGeometry:
+        if layer_type == QgsWkbTypes.GeometryType.PolygonGeometry:
             if points[0] != points[-1]:
                 points.append(points[0])
             if len(points) < 4:
                 return None
             return QgsGeometry.fromPolygonXY([points])
-        elif layer_type == QgsWkbTypes.PointGeometry:
+        elif layer_type == QgsWkbTypes.GeometryType.PointGeometry:
             return QgsGeometry.fromPointXY(points[0])
         return QgsGeometry.fromPolylineXY(points)
 
