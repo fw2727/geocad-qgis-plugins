@@ -2,7 +2,7 @@
 name=CopyFromQgis - Copia QGIS a AutoCAD | GeoCAD Solutions
 qgisMinimumVersion=3.0
 description=Copia polígonos de QGIS a AutoCAD 2014-2026 en 1 clic, sin DXF. De GeoCAD Solutions
-version=1.1
+version=1.2
 author=Freddy Minaya - GeoCAD Solutions
 email=geocad.solutions@outlook.com
 about=Exporta entidades seleccionadas de QGIS a AutoCAD vía COM. Ahorra 30 minutos por plano.<br><br>De los creadores de GEOCOOR - Cuadro UTM en 12 segundos.<br><br>Freddy Minaya - GeoCAD Solutions<br>geocad.solutions@outlook.com<br>geocadsolutions.github.io - Pack 5 herramientas AutoCAD por $38.50 - Soporte por Correo.
