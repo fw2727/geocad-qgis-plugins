@@ -347,12 +347,12 @@ class PasteFromCAD:
         os.makedirs(dxf_out, exist_ok=True)
         with open(dwg_path, 'wb') as f:
             f.write(dwg_data)
-        abs_dwg = os.path.abspath(dwg_path)
+        abs_dwg_dir = os.path.abspath(tmp_dir)
         abs_dxf = os.path.abspath(dxf_out)
         abs_converter = os.path.abspath(ODA_CONVERTER)
         try:
             subprocess.run(  # nosec B603
-                [abs_converter, abs_dwg, abs_dxf, version, "DXF", "0", "0"],
+                [abs_converter, abs_dwg_dir, abs_dxf, version, "DXF", "0", "0"],
                 capture_output=True, timeout=30,
                 creationflags=getattr(subprocess, 'CREATE_NO_WINDOW', 0)
             )
