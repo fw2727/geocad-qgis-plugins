@@ -111,7 +111,7 @@ class CopyFromQgis:
             if geom.isNull() or geom.isEmpty():
                 continue
 
-            if geom.type() == QgsWkbTypes.PolygonGeometry:
+            if geom.type() == QgsWkbTypes.GeometryType.PolygonGeometry:
                 polys = geom.asMultiPolygon() if geom.isMultipart() else [geom.asPolygon()]
                 for poly in polys:
                     for ring in poly:
@@ -128,7 +128,7 @@ class CopyFromQgis:
                         p.Layer = tmp
                         created.append(p)
 
-            elif geom.type() == QgsWkbTypes.LineGeometry:
+            elif geom.type() == QgsWkbTypes.GeometryType.LineGeometry:
                 lines_list = geom.asMultiPolyline() if geom.isMultipart() else [geom.asPolyline()]
                 for ln in lines_list:
                     if len(ln) < 2:
@@ -144,7 +144,7 @@ class CopyFromQgis:
                     p.Layer = tmp
                     created.append(p)
 
-            elif geom.type() == QgsWkbTypes.PointGeometry:
+            elif geom.type() == QgsWkbTypes.GeometryType.PointGeometry:
                 pts = geom.asMultiPoint() if geom.isMultipart() else [geom.asPoint()]
                 for pt in pts:
                     v = win32com.client.VARIANT(
