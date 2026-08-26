@@ -9,7 +9,8 @@ from qgis.PyQt.QtWidgets import QAction, QMessageBox
 from qgis.PyQt.QtGui import QIcon
 import os
 from qgis.core import (
-    QgsFeature, QgsGeometry, QgsPointXY, QgsWkbTypes, QgsVectorLayer, QgsRectangle
+    QgsFeature, QgsGeometry, QgsPointXY, QgsWkbTypes, QgsVectorLayer, QgsRectangle,
+    QgsMessageLog
 )
 from qgis.utils import iface
 
@@ -41,9 +42,8 @@ def _read_clipboard():
                 data = win32clipboard.GetClipboardData(embed_id)
                 if data and len(data) > 100 and data[:4] == b'\xd0\xcf\x11\xe0':
                     return 'ole', data
-            except Exception:
-                pass
-        for fmt_id in fmts:
+            except Exception as e:
+                QgsMessageLog.logMessage("PasteFromCAD: OLE clipboard read: {}".format(e), "PasteFromCAD", 1)
             try:
                 data = win32clipboard.GetClipboardData(fmt_id)
                 if not data or len(data) < 100:
@@ -58,9 +58,8 @@ def _read_clipboard():
             text = win32clipboard.GetClipboardData(win32clipboard.CF_UNICODETEXT)
             if text and len(text) > 10:
                 return 'text', text
-        except Exception:
-            pass
-        return None, None
+        except Exception as e:
+            QgsMessageLog.logMessage("PasteFromCAD: text clipboard read: {}".format(e), "PasteFromCAD", 1)
     finally:
         win32clipboard.CloseClipboard()
 
@@ -175,19 +174,15 @@ def _extract_points_from_tags(etype, tags):
         for j in range(min(len(xs), len(ys))):
             try:
                 pts.append((float(xs[j]), float(ys[j])))
-            except ValueError:
-                pass
-
-    elif etype == 'POLYLINE':
+            except ValueError as e:
+                QgsMessageLog.logMessage("PasteFromCAD: LWPOLYLINE point parse: {}".format(e), "PasteFromCAD", 0)
         xs = [v for gc, v in tags if gc == 10]
         ys = [v for gc, v in tags if gc == 20]
         for j in range(min(len(xs), len(ys))):
             try:
                 pts.append((float(xs[j]), float(ys[j])))
-            except ValueError:
-                pass
-
-    elif etype == 'LINE':
+            except ValueError as e:
+                QgsMessageLog.logMessage("PasteFromCAD: POLYLINE point parse: {}".format(e), "PasteFromCAD", 0)
         x1 = next((v for gc, v in tags if gc == 10), None)
         y1 = next((v for gc, v in tags if gc == 20), None)
         x2 = next((v for gc, v in tags if gc == 11), None)
@@ -375,8 +370,8 @@ class PasteFromCAD:
         finally:
             try:
                 shutil.rmtree(tmp_dir, ignore_errors=True)
-            except Exception:
-                pass
+            except Exception as e:
+                QgsMessageLog.logMessage("PasteFromCAD: temp cleanup: {}".format(e), "PasteFromCAD", 0)
 
     def _dwg_to_entities(self, dwg_data):
         if dwg_data[:6] not in DWG_VERSIONS:
@@ -390,8 +385,8 @@ class PasteFromCAD:
         finally:
             try:
                 shutil.rmtree(tmp_dir, ignore_errors=True)
-            except Exception:
-                pass
+            except Exception as e:
+                QgsMessageLog.logMessage("PasteFromCAD: temp cleanup: {}".format(e), "PasteFromCAD", 0)
 
     def _entities_to_features(self, entities, layer_type, layer):
         features = []

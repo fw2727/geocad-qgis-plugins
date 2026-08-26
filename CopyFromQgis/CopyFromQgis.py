@@ -3,7 +3,8 @@ import os
 from qgis.PyQt.QtWidgets import QAction, QMessageBox
 from qgis.PyQt.QtGui import QIcon
 from qgis.core import (
-    QgsFeature, QgsGeometry, QgsPointXY, QgsWkbTypes, QgsVectorLayer
+    QgsFeature, QgsGeometry, QgsPointXY, QgsWkbTypes, QgsVectorLayer,
+    QgsMessageLog
 )
 
 
@@ -74,15 +75,15 @@ class CopyFromQgis:
                     "AutoCAD.Application"
                 )
                 break
-            except Exception:
-                pass
+            except Exception as e:
+                QgsMessageLog.logMessage("CopyFromQgis: GetActiveObject attempt {}: {}".format(attempt + 1, e), "CopyFromQgis", 1)
             try:
                 acad = win32com.client.Dispatch(
                     "AutoCAD.Application"
                 )
                 break
-            except Exception:
-                pass
+            except Exception as e:
+                QgsMessageLog.logMessage("CopyFromQgis: Dispatch attempt {}: {}".format(attempt + 1, e), "CopyFromQgis", 1)
             time.sleep(1)
 
         if acad is None:
@@ -172,12 +173,7 @@ class CopyFromQgis:
 
         try:
             doc.Layers.Item(tmp).Delete()
-        except Exception:
-            pass
-
-        try:
-            doc.Layers.Item(tmp).Delete()
-        except Exception:
-            pass
+        except Exception as e:
+            QgsMessageLog.logMessage("CopyFromQgis: cleanup layer: {}".format(e), "CopyFromQgis", 0)
 
         return True, ""
