@@ -44,6 +44,7 @@ def _read_clipboard():
                     return 'ole', data
             except Exception as e:
                 QgsMessageLog.logMessage("PasteFromCAD: OLE clipboard read: {}".format(e), "PasteFromCAD", 1)
+        for fmt_id in fmts:
             try:
                 data = win32clipboard.GetClipboardData(fmt_id)
                 if not data or len(data) < 100:
