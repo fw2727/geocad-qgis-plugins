@@ -177,6 +177,8 @@ def _extract_points_from_tags(etype, tags):
                 pts.append((float(xs[j]), float(ys[j])))
             except ValueError as e:
                 QgsMessageLog.logMessage("PasteFromCAD: LWPOLYLINE point parse: {}".format(e), "PasteFromCAD", 0)
+
+    elif etype == 'POLYLINE':
         xs = [v for gc, v in tags if gc == 10]
         ys = [v for gc, v in tags if gc == 20]
         for j in range(min(len(xs), len(ys))):
@@ -184,6 +186,8 @@ def _extract_points_from_tags(etype, tags):
                 pts.append((float(xs[j]), float(ys[j])))
             except ValueError as e:
                 QgsMessageLog.logMessage("PasteFromCAD: POLYLINE point parse: {}".format(e), "PasteFromCAD", 0)
+
+    elif etype == 'LINE':
         x1 = next((v for gc, v in tags if gc == 10), None)
         y1 = next((v for gc, v in tags if gc == 20), None)
         x2 = next((v for gc, v in tags if gc == 11), None)
@@ -364,7 +368,8 @@ class PasteFromCAD:
             ole = olefile.OleFileIO(io.BytesIO(ole_data))
             content = ole.openstream('Contents').read()
             ole.close()
-        except Exception:
+        except Exception as e:
+            QgsMessageLog.logMessage("PasteFromCAD: OLE parse: {}".format(e), "PasteFromCAD", 1)
             return []
         if content[:6] not in DWG_VERSIONS:
             return []
