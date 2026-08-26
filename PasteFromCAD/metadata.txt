@@ -2,7 +2,7 @@
 name=PasteFromCad - Pega de AutoCAD a QGIS | GeoCAD Solutions
 qgisMinimumVersion=3.0
 description=Pega entidades de AutoCAD (Ctrl+C) directo en QGIS en edición. Sin DXF, compatible 2014-2026
-version=1.2
+version=1.3
 author=Freddy Minaya - GeoCAD Solutions
 email=geocad.solutions@outlook.com
 about=Pega entidades copiadas desde AutoCAD (formato DXF en portapapeles o texto _PLINE/_POINT/_TEXT) directamente en una capa vectorial de QGIS que esté en modo edición.<br><br>De los creadores de GEOCOOR - Cuadro UTM en 12 segundos.<br><br>Freddy Minaya - GeoCAD Solutions<br>geocad.solutions@outlook.com<br>geocadsolutions.github.io - Pack 5 herramientas AutoCAD por $38.50 - Soporte por Correo.<br><br>Herramienta hermana: CopyFromQgis para copiar de QGIS a AutoCAD.
